@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\correoMailable;
 use App\Models\Nombre;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class nombresController extends Controller
 {
@@ -36,6 +38,12 @@ class nombresController extends Controller
     }
 
     public function mail(Nombre $nombre){
-        return $nombre;
+
+
+
+
+        Mail::to('arturo.resendiz@grupopabsa.com')->queue(new correoMailable($nombre));
+        return new correoMailable($nombre);
+
     }
 }
