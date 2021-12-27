@@ -73,7 +73,9 @@
     <div class="row bg-white shadow p-4 mt-5 justify-content-center">
         <div class="col-12 text-center my-4">
             <h3>
-                Felicitaciones del dia: <strong>20/Junio/2022</strong>
+                Felicitaciones del dia: <strong>{{date("F j, Y,")}} 
+                {{setlocale(LC_ALL,"es_ES")}}
+                {{ strftime("%A %d de %B del %Y")}}</strong>
             </h3>
         </div>
 

@@ -1,7 +1,8 @@
 <?php
 
-use App\Http\Controllers\nombresController;
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\nombresController;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +21,13 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::get('/', [nombresController::class, 'index'])->name('inicio');
-
 Route::post('/correo{nombre}', [nombresController::class, 'mail'])->name('correo');
-
 Route::post('/', [nombresController::class, 'store'])->name('nombres.store');
+
+route::get('/pdf', function(){
+$pdf = App::make('dompdf.wrapper');
+$pdf->loadHTML('<h1>Test</h1>');
+return $pdf->stream();
+});
+
 

@@ -3,9 +3,10 @@
 namespace App\Mail;
 
 use Illuminate\Bus\Queueable;
-use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
+use Illuminate\Support\Facades\App;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Queue\ShouldQueue;
 
 class correoMailable extends Mailable
 {
@@ -31,6 +32,6 @@ class correoMailable extends Mailable
      */
     public function build()
     {
-        return $this->view('emails.message-received');
+         return $this->view('emails.message-received');
     }
 }

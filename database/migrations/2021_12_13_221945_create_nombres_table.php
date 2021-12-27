@@ -18,6 +18,7 @@ class CreateNombresTable extends Migration
             $table->string('nombre');
             $table->string('Area_trabajo');
             $table->string('email');
+            $table->string('felicitado');
             $table->string('fecha_nacimiento');
             $table->timestamps();
         });
