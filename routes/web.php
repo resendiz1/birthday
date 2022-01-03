@@ -23,10 +23,21 @@ use App\Http\Controllers\nombresController;
 Route::get('/', [nombresController::class, 'index'])->name('inicio');
 Route::post('/correo{nombre}', [nombresController::class, 'mail'])->name('correo');
 Route::post('/', [nombresController::class, 'store'])->name('nombres.store');
+Route::get('/buscar', [nombresController::class, 'buscar'])->name('cumple.buscar');
+Route::post('/buscar',[nombresController::class, 'buscado'])->name('buscado');
+
+
+//ruta de prueba de el agregado de frases
+
+Route::view('/frase', 'frases.agregar')->name('frases');
+
+
+
+
 
 route::get('/pdf', function(){
 $pdf = App::make('dompdf.wrapper');
-$pdf->loadHTML('<h1>Test</h1>');
+$pdf->loadView('<h1>Test</h1>');
 return $pdf->stream();
 });
 

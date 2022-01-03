@@ -4,8 +4,6 @@
 
 @section('content')
 <div class="container">
-
-    
     @if (session('agregado'))
     <div class="row justify-content-center">
         <div class="col-4">
@@ -13,8 +11,8 @@
                 <i class="fa fa-check-circle"></i>
                 {{session('agregado')}}
             </div>
-        </div>
     </div>
+</div>
     @endif
     
 
@@ -22,9 +20,16 @@
 
     <div class="row justify-content-center mt-2">
         <div class="col-4 text-center">
-            <button class="btn btn-success" data-bs-toggle="modal" data-bs-target="#exampleModal">
+            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+                <i class="fa fa-plus"></i>
                 Agregar cumpleaños
             </button>
+        </div>
+        <div class="col-4 text-center">
+            <a href="{{route('cumple.buscar')}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-eye"></i>
+                Ver todos los cumpleañeros
+            </a>
         </div>
     </div>
 
@@ -73,11 +78,14 @@
     <div class="row bg-white shadow p-4 mt-5 justify-content-center">
         <div class="col-12 text-center my-4">
             <h3>
-                Felicitaciones del dia: <strong>{{date("F j, Y,")}} 
-                {{setlocale(LC_ALL,"es_ES")}}
+                Felicitaciones del dia: <strong>
+                {{ setlocale(LC_ALL,"es_ES")}}
                 {{ strftime("%A %d de %B del %Y")}}</strong>
             </h3>
-        </div>
+    </div>
+
+
+    
 
 @forelse ($nombre as $nombreItem)
     <div class="col-lg-4 col-md-4 col-sm-6 mt-5">
