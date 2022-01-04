@@ -5,8 +5,8 @@
         <div class="row justify-content-center">
             <div class="col-12">
                 <a href="{{route('inicio')}}">
-                    <i class="fa fa-home mx-3"></i>
-                    Regresar al inicio
+                    <i class="fa fa-home mx-2"></i>
+                    Regresar
                 </a>
             </div>
             <div class="col-3 text-center">
@@ -27,10 +27,24 @@
         @if (isset($resultado))
         <div class="row justify-content-around mt-5 bg-white p-5">
             @forelse ($resultado as $item)
-                <div class="col-3 bg-white shadow text-center p-3 rounded">
-                    <h5>{{$item->nombre}}</h5>
-                    <h6>{{$item->fecha_nacimiento}}</h6>
-                    <h4>{{$item->Area_trabajo}}</h4>
+                <div class="col-3 text-center p-3 rounded">
+                    <div class="card">
+                        <div class="card-header">
+                            {{$item->nombre}}
+                        </div>
+                        <div class="card-body">
+                            <strong>
+                                {{$item->fecha_nacimiento}}
+                            </strong> 
+                            <br>
+                            <small>
+                                {{$item->Area_trabajo}}
+                            </small>
+                        </div>
+                        <div class="card-footer">
+                            {{$item->email}}
+                        </div>
+                    </div>
                 </div>
             @empty
                 <li>No hay datos para mostrar</li>

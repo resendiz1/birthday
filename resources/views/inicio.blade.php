@@ -14,24 +14,59 @@
     </div>
 </div>
     @endif
-    
+    @if (session('enviado'))
+    <div class="row justify-content-center">
+        <div class="col-4">
+            <div class="alert alert-primary alert-sm text-center fw-bold shadow">
+              <i class="far fa-thumbs-up"></i>
+                 {!!session('enviado')!!}
+            </div>
+    </div>
+</div>
+    @endif
+   
 
 
 
-    <div class="row justify-content-center mt-2">
-        <div class="col-4 text-center">
-            <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
+
+
+
+    <div class="row justify-content-center mt-2 bg-primary p-2 rounded">
+
+        <div class="col-3 text-center">
+            <button class="btn btn-primary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
                 <i class="fa fa-plus"></i>
                 Agregar cumpleaños
             </button>
         </div>
-        <div class="col-4 text-center">
-            <a href="{{route('cumple.buscar')}}" class="btn btn-primary btn-sm">
+
+        <div class="col-3 text-center">
+            <a href="{{route('cumple.buscar')}}" class="btn btn-primary text-white btn-sm ">
                 <i class="fa fa-eye"></i>
                 Ver todos los cumpleañeros
             </a>
         </div>
+
+        <div class="col-3 text-center">
+            <a href="{{route('frases.index')}}" class="btn btn-primary btn-sm">
+                <i class="fa fa-plus-square mx-1"></i>
+                Agregar Frases
+            </a>
+        </div>
+
+        <div class="col-3 text-center">
+            <a href="{{route('imagen.create')}}" class="btn btn-primary text-white btn-sm">
+                <i class="fa fa-plus-circle"></i>
+                Agregar Imagenes
+            </a>
+        </div>
+
     </div>
+
+
+
+
+
 
   
   <!-- Modal -->
@@ -96,9 +131,14 @@
             {{$nombreItem->Area_trabajo}}
         </div>
         <div class="card-body text-center">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-12">
-                    <i class="fas fa-birthday-cake fa-2x"></i>
+                    <?php 
+                    $colores = ['text-success', 'text-primary', 'text-secondary', 'text-danger', 'text-info', 'text-warning']
+               
+                    ?>
+                    <i class="fas fa-birthday-cake fa-2x {!!$colores[rand(0, 5)]!!}  "></i>
+
                 </div>
                 <div class="col-12">
                     <span>{{$nombreItem->nombre}}</span> 
@@ -109,14 +149,32 @@
                 <div class="col-12">
                     <strong>{{$nombreItem->email}}</strong>
                 </div>
+                @if ($nombreItem->felicitado == 'si')
+                    <div class="col-8 p-0 bg-success text-white m-2 rounded-pill">
+                        <i class="fa fa-check-circle mx-2"></i>
+                        <strong>Felicitaciones enviadas</strong>
+                    </div>
+                @endif
             </div>
         </div>
+
+    {{-- Aqui decidiendo si ya fue felicitado o no, dependiendo de cada respuesta es lo que se mostrara --}}
         <div class="card-footer text-center">
-            <button class="btn btn-primary">
-                <i class="fas fa-paper-plane"></i>
-                Enviar Felicitaciones 
-        </button>
+            @if ($nombreItem->felicitado == 'si')
+                <button class="btn btn-primary btn-sm">
+                    <i class="fas fa-paper-plane"></i>
+                    Volver a enviar felicitaciones 
+                </button>     
+            @else
+                <button class="btn btn-primary btn-sm">
+                    <i class="fas fa-paper-plane"></i>
+                    Enviar Felicitaciones 
+                </button>
+            @endif
         </div> 
+    {{-- Aqui termina el codigo que evalua si ya fue felicitado eso --}}
+
+        
     </form>
         </div>
     </div>
@@ -128,6 +186,5 @@
         
 
     </div>
-
 </div>
 @endsection

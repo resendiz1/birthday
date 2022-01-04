@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\frasesController;
+use App\Http\Controllers\imagenesController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\nombresController;
@@ -28,17 +30,18 @@ Route::post('/buscar',[nombresController::class, 'buscado'])->name('buscado');
 
 
 //ruta de prueba de el agregado de frases
-
-Route::view('/frase', 'frases.agregar')->name('frases');
-
-
-
+Route::get('/frases', [frasesController::class, 'index'])->name('frases.index');
+Route::post('/frases',[frasesController::class, 'create'])->name('frases.create');
+Route::post('/frases/{$frase}', [frasesController::class, 'delete'])->name('frases.delete');
 
 
-route::get('/pdf', function(){
-$pdf = App::make('dompdf.wrapper');
-$pdf->loadView('<h1>Test</h1>');
-return $pdf->stream();
-});
+
+//Ruta que va a servir para el agregado de imagenes
+Route::get('/imagenes', [imagenesController::class, 'index'])->name('imagen.index');
+Route::post('/imagenes', [imagenesController::class, 'create'])->name('imagen.create');
+
+
+
+
 
 

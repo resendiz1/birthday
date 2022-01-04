@@ -15,7 +15,7 @@ class CreateFrasesTable extends Migration
     {
         Schema::create('frases', function (Blueprint $table) {
             $table->id();
-            $table->string('frase');
+            $table->text('frase');
             $table->timestamps();
         });
     }
