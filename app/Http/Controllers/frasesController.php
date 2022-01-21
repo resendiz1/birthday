@@ -8,14 +8,20 @@ use Illuminate\Support\Facades\DB;
 
 class frasesController extends Controller
 {
+
+    
     public function index(){
 
         $frases = DB::select('SELECT*FROM frases');
-
         return view('frases.agregar', compact('frases'));
     }
 
+
+
+
+
     public function create(){
+
 
         Frase::create([
             'frase' => request('frase')
@@ -24,7 +30,14 @@ class frasesController extends Controller
 
     }
 
+
+
+
+
     public function delete(Frase $frase){
-        return '$frase;';
+        
+        $frase->delete();
+        
+        return back()->with('borrada', 'La frase fue eliminada');
     }
 }

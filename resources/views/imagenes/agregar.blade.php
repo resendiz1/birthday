@@ -11,11 +11,20 @@
             </a>
         </div>
         @if (session('agregado'))
+          <div class="col-4">
+              <div class="alert alert-success alert-sm shadow p-2 text-center">
+                  {{session('agregado')}}
+              </div>
+          </div>
+        @endif
+        @if (session('borrada'))
         <div class="col-4">
-            <div class="alert alert-success alert-sm shadow p-2 text-center">
-                {{session('agregado')}}
-            </div>
-        </div>
+          <div class="alert alert-warning alert-sm shadow p-2 text-center">
+              {{session('borrada')}}
+          </div>
+      </div>
+        @else
+            
         @endif
         <div class="col-12 text-center mt-3">
             <button class="btn btn-success btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -59,7 +68,20 @@
 
       @forelse ($imagenes as $item)
     <div class="col-5 bg-white shadow text-center p-3 m-2 ">
-        <img src="{{$item->imagen}}" class="img-fluid" alt="">
+      <div class="row justify-content-center">
+        <div class="col-12">
+          <img src="{{$item->imagen}}" class="img-fluid" alt="">
+        </div>
+        <div class="col-1 text-center">
+          <form action="{{route('imagen.delete', $item->id)}}" method="POST">
+            @csrf @method('DELETE')
+            <button class="btn btn-danger rounded pill btn-sm py-0">
+              Borrar
+            </button>
+          </form>
+        </div>
+
+      </div>
     </div>
       @empty
           <li>No hay imagenes para mostrar</li>

@@ -29,17 +29,23 @@ Route::get('/buscar', [nombresController::class, 'buscar'])->name('cumple.buscar
 Route::post('/buscar',[nombresController::class, 'buscado'])->name('buscado');
 
 
+//Ruta que importa desde excel
+Route::post('/importandoExcel', [nombresController::class, 'importExcel'])->name('excel.import');
+
+
+
+
 //ruta de prueba de el agregado de frases
 Route::get('/frases', [frasesController::class, 'index'])->name('frases.index');
 Route::post('/frases',[frasesController::class, 'create'])->name('frases.create');
-Route::post('/frases/{$frase}', [frasesController::class, 'delete'])->name('frases.delete');
+Route::delete('/frases/{frase}', [frasesController::class, 'delete'])->name('frases.delete');
 
 
 
 //Ruta que va a servir para el agregado de imagenes
 Route::get('/imagenes', [imagenesController::class, 'index'])->name('imagen.index');
 Route::post('/imagenes', [imagenesController::class, 'create'])->name('imagen.create');
-
+Route::delete('/imagenes/{imagen}',[imagenesController::class, 'delete'])->name('imagen.delete');
 
 
 

@@ -11,14 +11,24 @@
         </a>
       </div>
       @if (session('agregado'))
-        <div class="col-10 text-center">
+        <div class="col-3 text-center">
           <div class="alert alert-success alert-sm p-1 shadow font-weight-bold">
             {{session('agregado')}}
           </div>
         </div>
-
       @endif
-        <div class="col-3 text-center">
+
+      @if (session('borrada'))
+      <div class="col-3 text-center">
+        <div class="alert alert-primary alert-sm p-1 shadow font-weight-bold">
+          {{session('borrada')}}
+        </div>
+      </div>
+      @else
+          
+      @endif
+
+        <div class="col-12 text-center">
             <button type="button" class="btn btn-primary btn-sm" data-toggle="modal" data-target="#exampleModalCenter">
               Agregar Frases
               </button>
@@ -61,7 +71,8 @@
     <div class="col-9 bg-white shadow rounded p-4 mt-3">
      <p> {{$item->frase}} </p>
      
-     <form action="#">
+     <form action="{{route('frases.delete', $item->id)}}" method="POST">
+      
        @csrf @method('DELETE')
        <button class="btn btn-danger btn-sm">
          <i class="fa fa-eraser"></i>

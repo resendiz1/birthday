@@ -26,5 +26,12 @@ class imagenesController extends Controller
         return redirect()->route('imagen.index')->with('agregado', '¡La imagen se agrego correctamente!');
     }
 
+    public function delete(Imagen $imagen){
+
+        $imagen->delete();
+        return back()->with('borrada', 'La imagen fue borrada de la galeria');
+
+    }
+
     
 }

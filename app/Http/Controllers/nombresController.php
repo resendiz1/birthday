@@ -7,9 +7,11 @@ use App\Models\Nombre;
 use Barryvdh\DomPDF\PDF;
 use App\Mail\correoMailable;
 use Illuminate\Http\Request;
+use App\Imports\nombresImport;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Mail;
+use Maatwebsite\Excel\Facades\Excel;
 
 
 class nombresController extends Controller
@@ -34,12 +36,12 @@ class nombresController extends Controller
 
 
     public function index(){
-       $hoy = date('m-d');
+        
+        $hoy = date('m-d');
        
         //$nombre = Nombre::get();
-         $nombre = DB::select("SELECT*FROM nombres WHERE fecha_nacimiento LIKE '$hoy'");
-       
-         return view('inicio', compact('nombre'));
+        $nombre = DB::select("SELECT*FROM nombres WHERE fecha_nacimiento LIKE '$hoy'");
+        return view('inicio', compact('nombre'));
 
     }
 
@@ -53,6 +55,7 @@ class nombresController extends Controller
         $data["title"] = 'Feliz Cumpleaños';
         $data["nombre"] = $nombre->nombre;
         $data["area"] = $nombre->Area_trabajo;
+        $data["id"] = $nombre->id;
 
 
         //Obtiene las frases de la base de datos y las agrega aqui
@@ -74,23 +77,40 @@ class nombresController extends Controller
                 ->subject($data["title"])
                 ->attachData($pdf->output(), "emails.message-received.pdf");
         });
-        DB::update("UPDATE nombres SET felicitado = 'si'");
+        DB::update("UPDATE nombres SET felicitado = 'si' WHERE id LIKE $nombre->id ");
         }
 
         catch(Exception $e){
             return dd('Ocurrio un error inesperado :(, error: '.$e.'  ');
         }
 
-
-
-
-
-
+        //Finaliza la ejecucion 
         return redirect()->route('inicio')->with('enviado', 'La felicitaciones fueron enviadas a: <br>'.$nombre->nombre.'');
 
     }
 
+
+
+
+
+    public function importExcel(Request $request){
+
+         $archivo = $request->file('excel');
+         try{
+         Excel::import(new nombresImport, $archivo);
+
+         return back()->with('excel', 'La carga del archivo fue completada');
+         }
+         catch (Exception $e){
+            return back()->with('error', 'Asegurate que el archivo cargado es el correcto e intenta de nuevo', compact('e'));
+         }
+
+        }
+
     
+
+
+
 
 
     public function buscar(){

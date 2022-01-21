@@ -12,9 +12,15 @@
 
     <style>
         body{
-               background-color: #EAECEE 
-;
+               background-color: #EAECEE;
             }
+        .flotante {
+                display:scroll;
+                position:fixed;
+                bottom:20px;
+                right:0px;
+                z-index: 3;
+}
     </style>
     <title>Cumpleaños</title>
 </head>

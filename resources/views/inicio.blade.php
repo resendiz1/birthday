@@ -3,35 +3,88 @@
 
 
 @section('content')
-<div class="container">
-    @if (session('agregado'))
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <div class="alert alert-success alert-sm text-center fw-bold shadow">
-                <i class="fa fa-check-circle"></i>
-                {{session('agregado')}}
+    <div class="container">
+        @if (session('agregado'))
+            <div class="row justify-content-center mt-5">
+                <div class="col-4">
+                    <div class="alert alert-success alert-sm text-center fw-bold shadow">
+                        <i class="fa fa-check-circle"></i>
+                        {{session('agregado')}}
+                    </div>
+                </div>
             </div>
-    </div>
-</div>
     @endif
+
+    @if (session('excel'))
+        <div class="row justify-content-center mt-5">
+            <div class="col-4">
+                <div class="alert alert-success alert-sm text-center fw-bold shadow">
+                    <i class="fa fa-check-circle"></i>
+                    {{session('excel')}}
+                </div>
+            </div>
+        </div>
+    @endif
+    
     @if (session('enviado'))
-    <div class="row justify-content-center">
-        <div class="col-4">
-            <div class="alert alert-primary alert-sm text-center fw-bold shadow">
-              <i class="far fa-thumbs-up"></i>
-                 {!!session('enviado')!!}
+        <div class="row justify-content-center mt-5">
+            <div class="col-4">
+                <div class="alert alert-primary alert-sm text-center fw-bold shadow">
+                <i class="far fa-thumbs-up"></i>
+                    {!!session('enviado')!!}
+                </div>
             </div>
-    </div>
-</div>
+        </div>
     @endif
-   
+    
+    @if (session('error'))
+        <div class="row justify-content-center mt-5">
+            <div class="col-4">
+                <div class="alert alert-danger alert-sm text-center fw-bold shadow">
+                <i class="fa fa-error"></i>
+                    {{session('error')}}
+                </div>
+            </div>
+        </div>
+    @else
+    
+    @endif   
+
+  
+  <!-- Modal -->
+  <div class="modal fade" id="excel" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Cargando desde Excel</h5>
+          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+        <form action="{{route('excel.import')}}" method="POST" enctype="multipart/form-data">
+              @csrf @method('POST')
+              <input type="file" name="excel" accept=".xlsx, .xls" class="form-control form-control-sm ">
+            </div>
+            <div class="modal-footer">
+                <button  class="btn btn-primary">Guardar Cambios</button>
+        </form>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 
 
 
 
+    <div class="row justify-content-center  bg-primary p-2 rounded sticky fixed-top mb-5">
 
-    <div class="row justify-content-center mt-2 bg-primary p-2 rounded">
+        <div class="col-2 flotante">
+            <button class="btn btn-success btn-sm"data-bs-toggle="modal" data-bs-target="#excel">
+                <i class="fa fa-table mx-2"></i>
+                Excel
+            </button>
+        </div>
 
         <div class="col-3 text-center">
             <button class="btn btn-primary text-white btn-sm" data-bs-toggle="modal" data-bs-target="#exampleModal">
@@ -90,7 +143,7 @@
               </div>
               <div class="form-group">
                   <label for="">Correo eléctronico la gerencia</label>
-                  <input type="text" name="email" class="form-control">
+                  <input type="email" name="email" class="form-control">
               </div>
               <div class="form-group">
                 <label for="">Fecha de cumpleaños</label>
@@ -110,12 +163,17 @@
 
 
 
-    <div class="row bg-white shadow p-4 mt-5 justify-content-center">
+    <div class="row bg-white shadow p-4 justify-content-center">
         <div class="col-12 text-center my-4">
+            <br>
             <h3>
                 Felicitaciones del dia: <strong>
-                {{ setlocale(LC_ALL,"es_ES")}}
-                {{ strftime("%A %d de %B del %Y")}}</strong>
+                <?php 
+
+                    date_default_timezone_set ('America/Mexico_City');
+                    echo date('m-d-Y')
+                 ?>
+                 </strong>
             </h3>
     </div>
 
@@ -150,7 +208,7 @@
                     <strong>{{$nombreItem->email}}</strong>
                 </div>
                 @if ($nombreItem->felicitado == 'si')
-                    <div class="col-8 p-0 bg-success text-white m-2 rounded-pill">
+                    <div class="col-8 my-3" style="color:rgb(2, 187, 2)">
                         <i class="fa fa-check-circle mx-2"></i>
                         <strong>Felicitaciones enviadas</strong>
                     </div>
