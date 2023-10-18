@@ -12,19 +12,24 @@ class imagenesController extends Controller
     public function index(){
 
        $imagenes = DB::select('SELECT*FROM imagenes');     
-        return view('imagenes.agregar', compact('imagenes'));
-
-   
+        return view('imagenes.agregar', compact('imagenes')); 
     }
+
+
 
     public function create(){
 
         
+
         Imagen::create([
             'imagen' => request('imagen')
         ]);
+        
         return redirect()->route('imagen.index')->with('agregado', '¡La imagen se agrego correctamente!');
     }
+
+
+
 
     public function delete(Imagen $imagen){
 

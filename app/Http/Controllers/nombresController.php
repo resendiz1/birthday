@@ -18,9 +18,10 @@ class nombresController extends Controller
 {
 
 
-    public function store(){
+    public function create(){
 
         $fecha = substr(request('fecha'),-5);
+
         Nombre::create([
             'nombre' => request('nombre'),
             'Area_trabajo' => request('area'),
@@ -35,7 +36,7 @@ class nombresController extends Controller
 
 
 
-    public function index(){
+    public function index(){  //Este metodo recupera de la base de datos los registros de los cumpleañeros de el dia en transcurso
         
         $hoy = date('m-d');
        
@@ -48,7 +49,7 @@ class nombresController extends Controller
 
 
 
-    public function mail(Nombre $nombre){
+    public function mail(Nombre $nombre){ //
 
         $pdf = App::make('dompdf.wrapper');
         $data["email"] = $nombre->email;
@@ -73,10 +74,13 @@ class nombresController extends Controller
         try{
 
         Mail::send('emails.message-received', $data, function ($message) use ($data, $pdf) {
-            $message->to($data["email"], $data["email"])
-                ->subject($data["title"])
-                ->attachData($pdf->output(), "emails.message-received.pdf");
+            $message->to($data["email"], 
+            $data["email"])
+
+            ->subject($data["title"])
+            ->attachData($pdf->output(), "emails.message-received.pdf");
         });
+
         DB::update("UPDATE nombres SET felicitado = 'si' WHERE id LIKE $nombre->id ");
         }
 
@@ -96,11 +100,14 @@ class nombresController extends Controller
     public function importExcel(Request $request){
 
          $archivo = $request->file('excel');
-         try{
-         Excel::import(new nombresImport, $archivo);
 
-         return back()->with('excel', 'La carga del archivo fue completada');
+         try{
+
+            Excel::import(new nombresImport, $archivo);
+            return back()->with('excel', 'La carga del archivo fue completada');
+
          }
+
          catch (Exception $e){
             return back()->with('error', 'Asegurate que el archivo cargado es el correcto e intenta de nuevo', compact('e'));
          }
@@ -116,6 +123,7 @@ class nombresController extends Controller
     public function buscar(){
         return view('busqueda.buscando');
     }
+
 
     public function buscado(){
 

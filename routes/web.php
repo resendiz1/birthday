@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\frasesController;
 use App\Http\Controllers\imagenesController;
+use App\Http\Controllers\loginController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\nombresController;
@@ -24,7 +25,7 @@ use App\Http\Controllers\nombresController;
 
 Route::get('/', [nombresController::class, 'index'])->name('inicio');
 Route::post('/correo{nombre}', [nombresController::class, 'mail'])->name('correo');
-Route::post('/', [nombresController::class, 'store'])->name('nombres.store');
+Route::post('/agregado', [nombresController::class, 'create'])->name('nombres.store');
 Route::get('/buscar', [nombresController::class, 'buscar'])->name('cumple.buscar');
 Route::post('/buscar',[nombresController::class, 'buscado'])->name('buscado');
 
@@ -48,6 +49,7 @@ Route::post('/imagenes', [imagenesController::class, 'create'])->name('imagen.cr
 Route::delete('/imagenes/{imagen}',[imagenesController::class, 'delete'])->name('imagen.delete');
 
 
-
+//Rutas del ogin
+Route::get('/login/', [loginController::class, 'login'])->name('login');
 
 

@@ -114,6 +114,13 @@
             </a>
         </div>
 
+        <div class="col-3 text-center">
+            <a href="{{route('login')}}" class="btn btn-primary text-white btn-sm">
+                <i class="fa fa-key mx-2"></i>
+                Login
+            </a>
+        </div>
+
     </div>
 
 
@@ -131,28 +138,31 @@
           <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
         </div>
         <div class="modal-body">
+
           <form action="{{route('nombres.store')}}" method="POST">
-            @csrf
-              <div class="form-group">
-                  <label for="">Nombre completo</label>
-                  <input type="text" name="nombre" class="form-control">
-              </div>
-              <div class="form-group">
-                  <label for="">Área en la que trabaja</label>
-                  <input type="text" name="area" class="form-control">
-              </div>
-              <div class="form-group">
-                  <label for="">Correo eléctronico la gerencia</label>
-                  <input type="email" name="email" class="form-control">
-              </div>
-              <div class="form-group">
-                <label for="">Fecha de cumpleaños</label>
-                <input type="date" name="fecha" class="form-control">
-            </div>
-            </div>
-            <div class="modal-footer">
-                <button class="btn btn-primary">Guardar cumpleaños</button>
+                @csrf @method('POST')
+                <div class="form-group">
+                    <label for="">Nombre completo</label>
+                    <input type="text" name="nombre" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Área en la que trabaja</label>
+                    <input type="text" name="area" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Correo eléctronico la gerencia</label>
+                    <input type="email" name="email" class="form-control">
+                </div>
+                <div class="form-group">
+                    <label for="">Fecha de cumpleaños</label>
+                    <input type="date" name="fecha" class="form-control">
+                </div>
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-primary">Guardar cumpleaños</button>
             </form>
+
+
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cerrar</button>
         </div>
       </div>
@@ -165,13 +175,13 @@
 
     <div class="row bg-white shadow p-4 justify-content-center">
         <div class="col-12 text-center my-4">
-            <br>
             <h3>
                 Felicitaciones del dia: <strong>
                 <?php 
 
-                    date_default_timezone_set ('America/Mexico_City');
-                    echo date('m-d-Y')
+                    echo date('D-M-Y');
+
+                    
                  ?>
                  </strong>
             </h3>
