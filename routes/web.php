@@ -51,5 +51,5 @@ Route::delete('/imagenes/{imagen}',[imagenesController::class, 'delete'])->name(
 
 //Rutas del ogin
 Route::get('/login/', [loginController::class, 'login'])->name('login');
-
+Route::post('/login/entrar', [loginController::class,'login_entrar'])->name('login.entrar');
 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+
 use Illuminate\Http\Request;
 
 class loginController extends Controller
@@ -11,4 +12,10 @@ class loginController extends Controller
         return view('login.login');
 
     }
+
+    public function login_entrar(){
+        return request()->only(['email','password']);
+    }
+
+
 }
